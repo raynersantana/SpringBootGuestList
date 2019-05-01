@@ -42,9 +42,18 @@ public class ConvidadoController {
 		repository.save(novoConvidado);
 		
 		Iterable<Convidado> convidados = repository.findAll();
-		
 		model.addAttribute("convidados", convidados);
+		return "listaConvidados";
+	}
+	
+	@RequestMapping(value="deletar/{id}", method = RequestMethod.GET)
+	public String deletar(@RequestParam("id") Long id, Model model) {
 		
+		Convidado convidado = repository.findOne(id);
+		repository.delete(convidado);
+		
+		Iterable<Convidado> convidados = repository.findAll();
+		model.addAttribute("convidados", convidados);
 		return "listaConvidados";
 	}
 }
